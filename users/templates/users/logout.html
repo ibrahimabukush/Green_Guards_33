@@ -1,0 +1,49 @@
+<title>Log Out</title>
+{% extends "blog/base.html" %}
+{% block content %}
+
+       
+    <body>
+    
+        <div class="video-text">
+            <h2>You have been logged out</h2>
+          <button class="re"><a  href="{% url 'login' %}">Log In Again</a></button>
+        </div>
+        
+        </div>
+        
+      </body>
+      
+    
+      
+      
+      <style>
+           
+          .video-text {
+          position: absolute;
+          top: 25%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: rgb(0, 0, 0);
+          font-size: 30px;
+          font-family: 'Jost', sans-serif;
+          text-align: left;
+          margin-top: 150px;
+        }
+      
+        h6 {
+          margin-top: 20px;
+        }
+      
+        button {
+          top: -50px;
+          margin-top: 20px;
+          color: rgb(255, 255, 255);
+          background-color: black;
+        }
+      
+        
+      
+      
+        </style> 
+{% endblock content %}

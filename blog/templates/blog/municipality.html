@@ -15,24 +15,20 @@
 
   <nav>
     <div class="wrapper">
-      <div class="logo"><a href="{% url 'blog-home' %}">Green Guards</a></div>
+      <div class="logo"><a href="{% url 'municipality' %}">Green Guards</a></div>
       <input type="radio" name="slider" id="menu-btn">
       <input type="radio" name="slider" id="close-btn">
       <ul class="nav-links">
         <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
-        <li>
-          <a href="#" class="desktop-item">My Profile</a>
-          <input type="checkbox" id="showDrop">
-          <label for="showDrop" class="mobile-item">Dropdown Menu</label>
-          <ul class="drop-menu">
-            <li><a href="{% url 'profile' %}">Profile</a></li>
-            <li><a href="#">My Reports</a></li>
-            <li><a href="#">Responds</a></li>
-          </ul>
-        </li>
-        <li><a  href="#">About</a></li>
-        <li><a  href="#" class="desktop-item">Contact</a></li>
-        <li><a  href="#">Feedback</a></li>
+       
+         
+            <li><a href="{% url 'profile_municipality' %}">Profile</a></li>
+            
+         
+        
+        <li><a  href="#">Post</a></li>
+        <li><a  href="#" class="desktop-item">Reports</a></li>
+        <li><a  href="#">Redundant</a></li>
         
       </ul>
       
@@ -56,10 +52,8 @@
 </body>
 
 </html>
-<div class="col-md-8">
-  
-  {% block content %}{% endblock %}
-</div>
+
+{% block content %}{% endblock %}
 <style>
 
 

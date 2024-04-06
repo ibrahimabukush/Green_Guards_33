@@ -1,0 +1,87 @@
+<title>Profile</title>
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ request.user.profile.image.url }}" >
+        <div class="media-body">
+            <h2 class="account-heading">{{ request.user.username }}</h2>
+            <p class="text-secondary">{{ request.user.email }}</p>
+        </div>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Profile Info</legend>
+            {{ u_form }}
+            {{ p_form }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Update</button>
+        </div>
+    </form>
+</div>
+<style>
+    .rounded-circle {
+        border-radius: 50%; 
+        width: 125px; 
+        height: 125px;
+    }
+    .content-section {
+        position: absolute;
+        top: 58%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: rgb(0, 0, 0);
+        font-size: 1rem;
+        font-family: 'Jost', sans-serif;
+        text-align: center;
+    }
+    .media {
+        display: flex;
+        align-items: center;
+    }
+    .media-body {
+        margin-left: 20px;
+        text-align: left;
+    }
+    /* Style for the form fields */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 0.6rem;
+        display: block;
+        margin-right: 700px;
+        margin-top: 40px;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group select,
+    .form-group textarea {
+        width: 90%;
+        padding: 0.75rem;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        
+    }
+    .form-group textarea {
+        height: 100px;
+    }
+    .form-group button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        background-color:  #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+    }
+    .form-group button:hover {
+        background-color:  #4CAF50;
+    }
+</style> 
+{% endblock content %}
