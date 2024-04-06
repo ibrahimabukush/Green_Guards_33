@@ -71,3 +71,23 @@ class RebortCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+    
+class RebortUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
+    model=Rebort
+    fields=['city', 'location_latitude', 'location_longitude', 'explanation', 'image', 'solution']
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+class RebortDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
+    model=Rebort
+    success_url = '/myreborts/'
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False

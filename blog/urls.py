@@ -1,6 +1,6 @@
 from django.urls import path
 from .import views
-from .views import PostListView,RebortListView,PostDetailView,RebortDetailView,PostCreateView,RebortCreateView,PostUpdateView,PostDeleteView
+from .views import PostListView,RebortListView,PostDetailView,RebortDetailView,PostCreateView,RebortCreateView,PostUpdateView,RebortUpdateView,PostDeleteView,RebortDeleteView
 
 
 
@@ -15,6 +15,8 @@ urlpatterns = [
     path('myreborts/',RebortListView.as_view(),name='blog-myreborts'),
     path('myreborts/<int:pk>/',RebortDetailView.as_view(),name='rebort-detail'),
     path('myreborts/new/',RebortCreateView.as_view(),name='rebort-create'),
-    
+    path('myreborts/<int:pk>/update/',RebortUpdateView.as_view(),name='rebort-update'),
+    path('myreborts/<int:pk>/delete/',RebortDeleteView.as_view(),name='rebort-delete'),
+ 
     
 ]
