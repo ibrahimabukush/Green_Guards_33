@@ -1,0 +1,123 @@
+<title>Response</title>
+{% extends "blog/base.html" %}
+{% block content %}
+    <div class="reborts-container">
+        {% if reborts %}
+            {% for rebort in reborts %}
+            {% if rebort.response %}
+                <div class="rebort-frame"> <!-- Frame for each rebort -->
+                    <p><strong>City:</strong>{{ rebort.city }}</p>
+                    <div class="location-info">
+                        <p><strong>Latitude:</strong> {{ rebort.location_latitude }}</p>
+                        <p><strong>Longitude:</strong> {{ rebort.location_longitude }}</p>
+                    </div>
+                    <p><strong>Explanation:</strong> {{ rebort.explanation }}</p>
+                    <a href="{{ rebort.image.url }}" target="_blank"><img src="{{ rebort.image.url }}" alt="Rebort Image"></a>
+                    <p><strong>Solution:</strong> {{ rebort.solution }}</p>
+                    <p><strong>Date Reported:</strong> {{ rebort.data_rebort }}</p>
+                    <p><strong><h1>Response:</h1></strong> {{ rebort.response }}</p>
+                </div>
+             {% endif %}
+            {% endfor %}
+        {% else %}
+        
+            <body>
+    
+                <div class="video-text">
+                    <h2>No Response Available</h2>
+                </div>
+                
+                </div>
+                
+              </body>
+        {% endif %}
+    </div>
+    <style>
+           
+        .video-text {
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: rgb(0, 0, 0);
+        font-size: 30px;
+        font-family: 'Jost', sans-serif;
+        text-align: left;
+        margin-top: 150px;
+      }
+    
+      h6 {
+        margin-top: 20px;
+      }
+    
+      button {
+        top: -50px;
+        margin-top: 20px;
+        color: rgb(255, 255, 255);
+        background-color: black;
+      }
+    
+      
+    
+    
+      </style> 
+    <style>
+        /* Container for reborts */
+        .reborts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 0.3fr)); /* Responsive grid layout */
+            gap: 200px; /* Spacing between reborts */
+            margin-top: 20px; /* Add space above reborts */
+            margin-left: 40px;
+        }
+
+        /* Frame styling */
+        .rebort-frame {
+            border: 1px solid #ddd; /* Gray border */
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px; /* Increase padding */
+            background-color: #f9f9f9; /* Light gray background color */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+            width: 400px;
+        }
+
+
+        /* Location info styling */
+        .location-info {
+            margin-bottom: 12px; /* Add spacing below location info */
+        }
+
+        .rebort-frame img {
+    display: block; /* Ensure image behaves as block element */
+    max-width: 100%; /* Set maximum width to 100% of its container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    margin-bottom: 12px; /* Add spacing below image */
+}
+
+        /* Rebort text styling */
+        .rebort-frame p {
+            font-size: 16px; /* Increase font size */
+            line-height: 1.6; /* Improved readability */
+            margin-bottom: 12px; /* Add spacing below paragraphs */
+        }
+        .my{
+            width: 95px;
+            background-color: #333;
+        }
+        .ry{
+            width: 100px;
+            background-color: #333;
+            margin-top: 5px;
+           
+        }
+        .cv{
+            width: 100px;
+            background-color: #333;
+            margin-top: 5px;
+            
+        }
+        
+    </style>
+{% endblock content %}

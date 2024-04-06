@@ -1,4 +1,4 @@
-<title>Reborts</title>
+<title>Redundant</title>
 {% extends "blog/municipality.html" %}
 {% block content %}
 
@@ -6,10 +6,10 @@
         {% if reborts %}
             {% for rebort in reborts %}
             
-                <div class="rebort-frame">
+                <div class="rebort-frame"> 
                       
                 {% if rebort.deleted %}
-                <span class="Star">&#9733;</span>
+                <span class="Star">&#9733;</span> 
             {% endif %}
                     <p><strong>Reported by:</strong> {{ rebort.author.username }}</p>
                     <h1>{{ rebort.city }}</h1>
@@ -32,7 +32,7 @@
                     <div class="response-box" style="display: none;">
                         <form method="POST" action="{% url 'respond-to-report' rebort.pk %}">
                             {% csrf_token %}
-                        
+                            <!-- Add form fields for response -->
                             <textarea name="response_content" rows="4" cols="50" placeholder="Enter your response here..."></textarea>
                             <br>
                             <input type="submit" value="Submit Response">
@@ -54,7 +54,7 @@
         <body>
     
             <div class="video-text">
-                <h2>No Reports Available.</h2
+                <h2>No Redundants Available.</h2
             </div>
             
             </div>
@@ -62,6 +62,7 @@
           </body>
         {% endif %}
     </div>
+      
     <style>
            
         .video-text {

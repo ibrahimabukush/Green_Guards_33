@@ -18,6 +18,8 @@ urlpatterns = [
     path('myreborts/<int:pk>/update/',RebortUpdateView.as_view(),name='rebort-update'),
     path('myreborts/<int:pk>/delete/',RebortDeleteView.as_view(),name='rebort-delete'),
     path('myrebortsM/',RebortListViewForM.as_view(),name='blog-myrebortsM'),
-
-    
+    path('toggle-rebort-redundancy/<int:pk>/', views.toggle_rebort_redundancy, name='toggle-rebort-redundancy'),
+    path('respond-to-report/', views.respond_to_report, name='respond-to-report'),
+    path('respond-to-report/<int:pk>/', views.respond_to_report, name='respond-to-report'),
+    path('redundant/', views.redundant, name='redundant'),
 ]

@@ -109,3 +109,42 @@ class RebortListViewForM(LoginRequiredMixin, ListView):
 def municipality(request):
     
     return render(request, 'blog/municipality.html')
+
+def redundant(request):
+    if request.method == 'POST':
+        pk = request.POST.get('rebort_pk')
+        rebort = Rebort.objects.get(pk=pk)
+        rebort.deleted = not rebort.deleted
+        rebort.save()
+        return redirect('redundant')
+
+    reborts = Rebort.objects.filter(deleted=True)
+    return render(request, 'blog/redundant.html', {'reborts': reborts})
+
+def toggle_rebort_redundancy(request, pk):
+    rebort = get_object_or_404(Rebort, pk=pk)
+    rebort.deleted = not rebort.deleted
+    rebort.save()
+    if rebort.deleted:
+        messages.success(request, 'Report removed from Redundant Reports.')
+    else:
+        messages.success(request, 'Report added to Redundant Reports.')
+
+    return redirect('blog-myrebortsM')
+
+@login_required
+def respond_to_report(request, pk=None):
+    if pk is None:
+        reborts = Rebort.objects.filter(author=request.user)
+        return render(request, 'blog/respond_to_report_all.html', {'reborts': reborts})
+    else:
+        if not request.user.is_authenticated:
+            return redirect('login')
+        rebort = get_object_or_404(Rebort, pk=pk)
+        if request.method == 'POST':
+            response_content = request.POST.get('response_content')
+            rebort.response = response_content
+            rebort.save()
+            messages.success(request, 'Response submitted successfully.')
+            return redirect('blog-myrebortsM')
+        return render(request, 'blog/respond_to_report.html', {'rebort': rebort})
