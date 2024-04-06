@@ -11,9 +11,6 @@ def home(request):
         'posts':Post.objects.all()
     }
     return render(request, 'blog/home.html',context)
-def municipality(request):
-    
-    return render(request, 'blog/municipality.html')
 class PostListView(ListView):
     model=Post
     template_name = 'blog/home.html'  # <app>/<model>_<viewtype>.html
@@ -91,3 +88,24 @@ class RebortDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
         if self.request.user == post.author:
             return True
         return False
+class RebortListViewForM(LoginRequiredMixin, ListView):
+    model = Rebort
+    template_name = 'blog/myrebortsM.html'
+    context_object_name = 'reborts'
+    ordering = ['-data_rebort']
+
+    def get_queryset(self):
+        # Get the city chosen by the user
+        chosen_city = self.request.user.username
+
+        # Filter reports based on the chosen city
+        queryset = Rebort.objects.filter(city=chosen_city)
+
+        return queryset
+    
+
+
+
+def municipality(request):
+    
+    return render(request, 'blog/municipality.html')

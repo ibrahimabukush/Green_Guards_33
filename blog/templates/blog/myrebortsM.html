@@ -1,0 +1,337 @@
+<title>Reborts</title>
+{% extends "blog/municipality.html" %}
+{% block content %}
+
+    <div class="reborts-container">
+        {% if reborts %}
+            {% for rebort in reborts %}
+            
+                <div class="rebort-frame">
+                      
+                {% if rebort.deleted %}
+                <span class="Star">&#9733;</span>
+            {% endif %}
+                    <p><strong>Reported by:</strong> {{ rebort.author.username }}</p>
+                    <h1>{{ rebort.city }}</h1>
+                    <div class="location-info">
+                        <p><strong>Latitude:</strong> {{ rebort.location_latitude }}</p>
+                        <p><strong>Longitude:</strong> {{ rebort.location_longitude }}</p>
+                    </div>
+                    <p><strong>Explanation:</strong> {{ rebort.explanation }}</p>
+                    <a href="{{ rebort.image.url }}" target="_blank"><img src="{{ rebort.image.url }}" alt="Rebort Image"></a>
+                    <p><strong>Solution:</strong> {{ rebort.solution }}</p>
+                    <p><strong>Date Reported:</strong> {{ rebort.data_rebort }}</p>
+                    <form method="POST" action="#">
+                        {% csrf_token %}
+                        <input type="hidden" name="rebort_pk" value="{{ rebort.pk }}">
+                        <button type="submit" class="cv"> {% if rebort.deleted %}Remove from{% else %}Add to{% endif %} Redundant Reports</button>
+                    </form>
+                    <button class="respond-btn">Respond to this report</button>
+                
+                   
+                    <div class="response-box" style="display: none;">
+                        <form method="POST" action="#">
+                            {% csrf_token %}
+                        
+                            <textarea name="response_content" rows="4" cols="50" placeholder="Enter your response here..."></textarea>
+                            <br>
+                            <input type="submit" value="Submit Response">
+                        </form>
+                    </div>
+                    <div class="status-dropdown">
+                        <select id="status-select-{{ rebort.pk }}" onchange="changeStatus(this.value, {{ rebort.pk }})">
+                            <option value="todo">To Do</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="done">Done</option>
+                        </select>
+                    </div>
+
+
+                </div>
+                
+            {% endfor %}
+        {% else %}
+        <body>
+    
+            <div class="video-text">
+                <h2>No Reports Available.</h2
+            </div>
+            
+            </div>
+            
+          </body>
+        {% endif %}
+    </div>
+    <style>
+           
+        .video-text {
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: rgb(0, 0, 0);
+        font-size: 30px;
+        font-family: 'Jost', sans-serif;
+        text-align: left;
+        margin-top: 150px;
+      }
+    
+      h6 {
+        margin-top: 20px;
+      }
+    
+      button {
+        top: -50px;
+        margin-top: 20px;
+        color: rgb(255, 255, 255);
+        background-color: black;
+      }
+    
+      
+    
+    
+      </style> 
+    <script>
+        // JavaScript to toggle visibility of response box
+        document.querySelectorAll('.respond-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const responseBox = button.nextElementSibling;
+                if (responseBox.style.display === 'none' || responseBox.style.display === '') {
+                    responseBox.style.display = 'block';
+                } else {
+                    responseBox.style.display = 'none';
+                }
+            });
+        });
+    </script>
+    <script>
+       
+        document.querySelectorAll('.respond-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const responseBox = button.nextElementSibling;
+                if (responseBox.style.display === 'none' || responseBox.style.display === '') {
+                    responseBox.style.display = 'block';
+                } else {
+                    responseBox.style.display = 'none';
+                }
+            });
+        });
+          
+    document.querySelectorAll('.respond-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const responseBox = button.nextElementSibling;
+            if (responseBox.style.display === 'none' || responseBox.style.display === '') {
+                responseBox.style.display = 'block';
+            } else {
+                responseBox.style.display = 'none';
+            }
+        });
+    });
+
+    
+    function changeStatus(status, rebortId) {
+        const rebortFrame = document.getElementById('status-select-' + rebortId).parentNode.parentNode;
+        rebortFrame.classList.remove('todo', 'in_progress', 'done');
+        rebortFrame.classList.add(status);
+    }
+    function changeStatus(status, rebortId) {
+    const rebortFrame = document.getElementById('status-select-' + rebortId).parentNode.parentNode;
+    rebortFrame.classList.remove('todo', 'in_progress', 'done');
+    rebortFrame.classList.add(status);
+
+   
+    localStorage.setItem('rebortStatus-' + rebortId, status);
+}
+
+
+window.onload = function() {
+    document.querySelectorAll('.status-dropdown select').forEach(select => {
+        const rebortId = select.id.split('-')[2];
+        const savedStatus = localStorage.getItem('rebortStatus-' + rebortId);
+        if (savedStatus) {
+            select.value = savedStatus;
+            changeStatus(savedStatus, rebortId); 
+        }
+    });
+};
+    </script>
+
+
+    <style>
+        .in_progress::before {
+        content: '';
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: blue;
+        border-radius: 50%;
+        margin-left: 350px;
+    }
+
+    .done::before {
+        content: '';
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: green;
+        border-radius: 50%;
+        margin-left: 350px;
+    }
+        .res{
+            color: #333;
+            
+        }
+        /* Container for reborts */
+        .reborts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid layout */
+            gap: 20px; /* Spacing between reborts */
+            margin-top: 20px; /* Add space above reborts */
+        }
+
+        /* Frame styling */
+        .rebort-frame {
+            border: 1px solid #ddd; /* Gray border */
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px; /* Increase padding */
+            background-color: #f9f9f9; /* Light gray background color */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+        }
+
+        /* Rebort styling */
+        .rebort-frame h1 {
+            color: #333; /* Dark gray text color */
+            font-size: 24px; /* Increase font size */
+            margin-bottom: 12px; /* Decrease bottom margin */
+        }
+
+        /* Location info styling */
+        .location-info {
+            margin-bottom: 12px; /* Add spacing below location info */
+        }
+
+        /* Rebort image styling */
+        .rebort-frame img {
+            display: block; /* Ensure image behaves as block element */
+            width: 100%; /* Fill container width */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+            margin-bottom: 12px; /* Add spacing below image */
+        }
+
+        /* Rebort text styling */
+        .rebort-frame p {
+            font-size: 16px; /* Increase font size */
+            line-height: 1.6; /* Improved readability */
+            margin-bottom: 12px; /* Add spacing below paragraphs */
+        }
+        .my{
+            width: 95px;
+            background-color: #333;
+        }
+        .ry{
+            width: 100px;
+            background-color: #333;
+            margin-top: 5px;
+           
+        }
+        .cv{
+            width: 100px;
+            background-color: #333;
+            margin-top: 5px;
+            
+        }
+    </style>
+    <style>
+         .status-dropdown{
+            margin-top: 20px;
+         }
+           
+           .video-text {
+           position: absolute;
+           top: 25%;
+           left: 50%;
+           transform: translate(-50%, -50%);
+           color: rgb(0, 0, 0);
+           font-size: 30px;
+           font-family: 'Jost', sans-serif;
+           text-align: left;
+           margin-top: 150px;
+         }
+       
+         h6 {
+           margin-top: 20px;
+         }
+       
+         button {
+           top: -50px;
+           margin-top: 20px;
+           color: rgb(255, 255, 255);
+           background-color: black;
+         }
+       
+         
+       
+       
+         </style> 
+       <style>
+           /* Container for reborts */
+           .reborts-container {
+               display: grid;
+               grid-template-columns: repeat(auto-fit, minmax(300px, 0.3fr)); /* Responsive grid layout */
+               gap: 200px; /* Spacing between reborts */
+               margin-top: 20px; /* Add space above reborts */
+               margin-left: 40px;
+           }
+   
+           /* Frame styling */
+           .rebort-frame {
+               border: 1px solid #ddd; /* Gray border */
+               border-radius: 10px; /* Rounded corners */
+               padding: 20px; /* Increase padding */
+               background-color: #f9f9f9; /* Light gray background color */
+               box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+               width: 400px;
+           }
+   
+   
+           /* Location info styling */
+           .location-info {
+               margin-bottom: 12px; /* Add spacing below location info */
+           }
+   
+           .rebort-frame img {
+       display: block; /* Ensure image behaves as block element */
+       max-width: 100%; /* Set maximum width to 100% of its container */
+       height: auto; /* Maintain aspect ratio */
+       border-radius: 8px; /* Rounded corners */
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+       margin-bottom: 12px; /* Add spacing below image */
+   }
+   
+           /* Rebort text styling */
+           .rebort-frame p {
+               font-size: 16px; /* Increase font size */
+               line-height: 1.6; /* Improved readability */
+               margin-bottom: 12px; /* Add spacing below paragraphs */
+           }
+           .my{
+               width: 95px;
+               background-color: #333;
+           }
+           .ry{
+               width: 100px;
+               background-color: #333;
+               margin-top: 5px;
+              
+           }
+           .cv{
+               width: 100px;
+               background-color: #333;
+               margin-top: 5px;
+               
+           }
+           
+      
+    </style>
+{% endblock content %}
