@@ -1,0 +1,254 @@
+<title>Rebort</title>
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<body>
+
+
+  <header>
+    <h1>Report Submission</h1>
+</header>
+<form method="post" enctype="multipart/form-data">
+    
+    {% csrf_token %}
+   
+ <section id="city-selection">
+    <h2>Select Your Municipality</h2>
+    <input required placeholder="Find your area here......" list="cities" name="city">
+    <datalist id="cities">
+          <option value="Or_Yehuda">Or_Yehuda</option>
+          <option value="Elad">Elad</option>
+          <option value="Bnei_Brak">Bnei_Brak</option>
+          <option value="Bat_Yam">Bat_Yam</option>
+          <option value="Givat_Shmuel">Givat_Shmuel</option>
+          <option value="Givatayim">Givatayim</option>
+          <option value="Holon">Holon</option>
+          <option value="Neve_Monosson">Neve_Monosson</option>
+          <option value="Petah_Tikva">Petah_Tikva</option>
+          <option value="Kiryat_Ono">Kiryat_Ono</option>
+          <option value="Rosh_Haayin">Rosh_Haayin</option>
+          <option value="Rishon_LeTsiyon">Rishon_LeTsiyon</option>
+          <option value="Ramat_Gan">Ramat_Gan</option>
+          <option value="Ramat_Hasharon">Ramat_Hasharon</option>
+          <option value="TelAviv_Yafo">TelAviv_Yafo</option>
+          <option value="Betar_Illit">Betar_Illit</option>
+          <option value="Jerusalem">Jerusalem</option>
+          <option value="Maale_Adumim">Maale_Adumim</option>
+          <option value="Ariel">Ariel</option>
+          <option value="Kfar_Qasim">Kfar_Qasim</option>
+          <option value="Modiin_Ilit">Modiin_Ilit</option>
+          <option value="Ofakim">Ofakim</option>
+          <option value="Eilat">Eilat</option>
+          <option value="Ashdod">Ashdod</option>
+          <option value="Ashkelon">Ashkelon</option>
+          <option value="Beer_Sheva">Beer_Sheva</option>
+          <option value="Dimona">Dimona</option>
+          <option value="Yavne">Yavne</option>
+          <option value="Netivot">Netivot</option>
+          <option value="Arad">Arad</option>
+          <option value="Kiryat_Malakhi">Kiryat_Malakhi</option>
+          <option value="Rahat">Rahat</option>
+          <option value="Sderot">Sderot</option>
+          <option value="Bet_Shemesh">Bet_Shemesh</option>
+          <option value="Modiin_Maccabim_Reut">Modiin_Maccabim_Reut</option>
+          <option value="Ness_Ziona">Ness_Ziona</option>
+          <option value="Kiryat_Gat">Kiryat_Gat</option> 
+          <option value="Rehovot">Rehovot</option>
+          <option value="Ramla">Ramla</option>
+          <option value="Hod_Hasharon">Hod_Hasharon</option>
+          <option value="Herzliya">Herzliya</option>
+          <option value="Tayibe">Tayibe</option>
+          <option value="Tira">Tira</option>
+          <option value="Kefar_Sava">Kefar_Sava</option>
+          <option value="Karmiel">Karmiel</option>
+          <option value="Lod">Lod</option>
+          <option value="Netanya">Netanya</option>
+          <option value="Qalansawe">Qalansawe</option>
+          <option value="Raanana">Raanana</option>
+          <option value="Umm_alFahm">Umm_alFahm</option>
+          <option value="Or_Akiva">Or_Akiva</option>
+          <option value="Baqa_Jatt">Baqa_Jatt</option>
+          <option value="Hadera">Hadera</option>
+          <option value="Haifa">Haifa</option>
+          <option value="Tirat_Carmel">Tirat_Carmel</option>
+          <option value="Nesher">Nesher</option>
+          <option value="Kiryat_Ata">Kiryat_Ata</option>
+          <option value="Kiryat_Bialik">Kiryat_Bialik</option>
+          <option value="Kiryat_Yam">Kiryat_Yam</option>
+          <option value="Kiryat_Motzkin">Kiryat_Motzkin</option>
+          <option value="Shefa_Amr">Shefa_Amr</option>
+          <option value="Beit_Shean">Beit_Shean</option>
+          <option value="Tiberias">Tiberias</option>
+          <option value="Yokneam_Illit">Yokneam_Illit</option>
+          <option value="Migdal_HaEmek">Migdal_HaEmek</option>
+          <option value="Nazareth">Nazareth</option>
+          <option value="Afula">Afula</option>
+          <option value="Tamra">Tamra</option>
+          <option value="Maalot_Tarshiha">Maalot_Tarshiha</option>
+          <option value="Nahariyya">Nahariyya</option>
+          <option value="Nof_HaGalil">Nof_HaGalil</option>
+          <option value="Sakhnin">Sakhnin</option>
+          <option value="Aco">Aco</option>
+          <option value="Safed">Safed</option>
+          <option value="Qiryat_Shemona">Qiryat_Shemona</option>
+          {% for city in cities %}
+          <option value="{{ city }}">{{ city }}</option>
+        {% endfor %}
+    </datalist>
+    
+</section>
+<section id="location-sharing">
+    <h2>Share Your Location</h2>
+    <button  type="button"onclick="shareLocation()">Share Location</button>
+    <input  type="hidden" id="location_latitude" name="location_latitude">
+<input type="hidden" id="location_longitude" name="location_longitude">
+    <div id="map"></div>
+    <p id="locationMessage" style="color: green; margin-top: 10px;"></p> <!-- Add this line -->
+</section>
+</section>
+<script>
+     function submitReport() {
+        var selectedCity = document.getElementById('selected_city');
+        selectedCity.value = document.querySelector('input[name="city"]').value;
+    }
+  function shareLocation() {
+    if (navigator.geolocation) {
+
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            if (latitude !== undefined && latitude !== null) {
+                document.getElementById('location_latitude').value = latitude;
+                document.getElementById('location_longitude').value = longitude;
+                document.getElementById('locationMessage').innerText = "Location retrieved successfully";
+            } else {
+                alert("your Location is missing. Please try again later or enter the location manually.");
+            }
+        }, function(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+
+
+
+</script>
+<section id="report-explanation">
+    <h2>Report Explanation</h2>
+    <textarea  required placeholder="Enter your report explanation here" name="explanation"></textarea>
+</section>
+<section id="report-image">
+    <h2>Upload Image</h2>
+    <input required type="file" name="image" accept="image/*">
+    
+</section>
+<section id="solution-proposal">
+    <h2>Solution Proposal</h2>
+    <textarea required  placeholder="Enter your solution proposal here" name="solution" ></textarea>
+</section>
+<section id="submit-report">
+    <button onclick="submitReport()">Submit Report</button>
+</section>
+
+
+<script src="script.js"></script>
+</form>
+
+
+</body>
+
+</html>
+<style>
+    #submit-report button {
+        background-color: #4CAF50; 
+        color: white; 
+        padding: 10px 20px; 
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        transition: background-color 0.3s;
+        margin-left: 295px;
+    }
+
+  
+    #submit-report button:hover {
+        background-color: #45a049; 
+    }
+   
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    width: 750px;
+    margin-top: 50px;
+    margin-left: 375px;
+}
+
+section {
+    background-color: #fff;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%; /* Adjust width as needed */
+     max-width: 750px;
+     margin-left: 375px;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+input,
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+</style>
+
+{% endblock content %}
