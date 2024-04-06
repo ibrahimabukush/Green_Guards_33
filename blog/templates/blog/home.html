@@ -1,0 +1,126 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    
+<div class="video-text">
+  <h1>We are working together to make a green environment</h1>
+  <h6>Ending plastic waste is ambitious. But it is through collaboration and collective action that this complex problem can be solved.</h6>
+  Save The Environment And Report - <a class="mn" href="#">Report</a>
+</div>
+   
+    <div class="posts">
+        {% for post in posts %}
+        <article class="post">
+            <h2 class="post-title">{{ post.title }}</h2>
+            <p class="post-content">{{ post.content }}</p>
+        </article>
+        {% endfor %}
+    </div>
+    
+    <div class="video-container">
+        <div class="video-frame">
+            <h2 class="video-title">Time is Running Out</h2>
+            <p>With each passing moment, the urgency to address environmental challenges grows more acute. Climate change, habitat destruction, and pollution are relentless forces, chipping away at the delicate balance of our planet's ecosystems. Time is no longer a luxury; it is a dwindling resource we must use wisely. We stand at a critical juncture where our actions today will determine the fate of future generations. The window of opportunity to mitigate these threats is closing rapidly. It's imperative that we come together, innovate, and take decisive action before it's too late. The clock is ticking, and the time to act is now.</p>
+        </div>
+        <div class="video-frame">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/jAa58N4Jlos" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .mn {
+            color: rgb(89, 199, 98);
+            font-size: 20px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .mn:hover {
+            color: #57b846;
+        }
+
+        .video-text {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .video-text h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .video-text h6 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .posts {
+            display: grid;
+            grid-gap: 30px;
+            margin: 0 auto;
+            max-width: 1200px;
+            padding: 0 20px;
+            margin-top: 50px;
+        }
+
+        .post {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .post-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .post-content {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .video-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        .video-frame {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 45%;
+            padding: 20px;
+        }
+
+        .video-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .video-frame p {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+        iframe {
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+        }
+    </style>
+    
+{% endblock content %}
