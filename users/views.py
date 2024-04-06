@@ -3,9 +3,7 @@ from django.contrib import messages
 from .forms import UserRegisterForm,LoginForm,UserUpdateForm,ProfileUpdateForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-
-
-
+from .models import Contact,Feedback
 def signup(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -85,3 +83,27 @@ def profile(request):
     }
 
     return render(request, 'users/profile.html', context)
+
+def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        report = request.POST.get('report')
+        data=Contact(name=name,email=email,report=report)
+        data.save()
+        messages.success(request, 'Thank you for contacting us! We appreciate your interest in our environmental initiatives.')
+        return redirect('contact')  
+    return render(request, 'users/contact.html')
+
+
+def feedback(request):
+    if request.method == 'POST':
+        name = request.POST.get('username')
+        stars = request.POST.get('stars')
+        text = request.POST.get('text')
+        stars = int(stars)
+        data = Feedback(name=name, stars=stars, text=text)
+        data.save()
+        messages.success(request, 'Thank you for sharing your thoughts with us! We truly appreciate your feedback.')
+        return redirect('feedback')  
+    return render(request, 'users/feedback.html')

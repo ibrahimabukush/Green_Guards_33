@@ -1,0 +1,82 @@
+<title>Contact</title>
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="ma">
+  <div class="y">
+    <h1>CONTACT US</h1>
+    <form method="post">
+      {% csrf_token %}
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        <label for="Report">Report:</label><br>
+        
+        <textarea id="report" name="report" rows="4" required></textarea><br>
+        {% if messages%}
+        {% for message in messages %}
+             <p style="color: rgb(115, 194, 55);">{{ message }}</p>
+
+        {% endfor %}
+
+        {% endif %}
+
+        <div class="submit-container">
+          <input type="submit" value="Submit">
+      </div>
+    </form>
+</div>
+</div>
+
+<style>
+.ma{
+  margin-top: 60px;
+}
+body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        
+    }
+    .y{
+        max-width: 800px;
+        margin: 0px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        height: 500px;
+   
+    }
+    .y form {
+height: 85%; /* Ensure the form fills the container's height */
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+}
+    label {
+        font-weight: bold;
+    }
+    input[type="text"], input[type="email"], textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .submit-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+}
+</style>
+
+{% endblock content %}

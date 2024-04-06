@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 from users import views
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', user_views.signup,name='signup'),
@@ -30,6 +31,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'),
     path('profile/', user_views.profile,name='profile'),
     path('profile_m/', user_views.profile,name='profile_municipality'),
+    path('contact/',views.contact,name='contact'),
+    path('feedback/',views.feedback,name='feedback'),
     path('password-reset/',auth_views.PasswordResetView.as_view(template_name='users/password_reset.html'),name='password_reset'),
     path('password-reset/done/',auth_views.PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'),name='password_reset_done'),
     path('password-reset-confirm/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'),name='password_reset_confirm'),

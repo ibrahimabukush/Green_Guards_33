@@ -27,12 +27,12 @@
           <ul class="drop-menu">
             <li><a href="{% url 'profile' %}">Profile</a></li>
             <li><a href="#">My Reports</a></li>
-            <li><a href="#">Responds</a></li>
+            <li><a href="#">Responds </a></li>
           </ul>
         </li>
-        <li><a  href="#">About</a></li>
-        <li><a  href="#" class="desktop-item">Contact</a></li>
-        <li><a  href="#">Feedback</a></li>
+        <li><a  href="{% url 'blog-about' %}">About</a></li>
+        <li><a  href="{% url 'contact' %}" class="desktop-item">Contact</a></li>
+        <li><a  href="{% url 'feedback' %}">Feedback</a></li>
         
       </ul>
       

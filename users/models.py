@@ -20,3 +20,17 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+class Contact(models.Model):
+    name= models.CharField(max_length=30)
+    email = models.EmailField()
+    report=models.CharField(max_length=2048)
+    def __str__(self):
+        return self.name
+class Feedback(models.Model):
+    name = models.CharField(max_length=20)
+    stars = models.IntegerField()
+    text = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.name
