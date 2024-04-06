@@ -1,0 +1,74 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    
+   
+    <body>
+      
+      <div class="video-text">
+        <h1>We are working together to make a green environment</h1>
+        <h6>Ending plastic waste is ambitious. But it is through collaboration and collective action that this complex problem can be solved.</h6>
+        <button class="re"><a href="#">Submitting a New Report +</a></button>
+       
+      </div>
+   
+      </div>
+     
+      <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#">{{ object.author }}</a>
+            <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+          </div>
+          <h2 class="article-title">{{ object.title }}</h2>
+          <p class="article-content">{{ object.content }}</p>
+        </div>
+      </article>
+    </body>
+    
+    
+   
+  
+    
+    <style>
+.m {
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+.video-text {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    font-family: 'Jost', sans-serif;
+    text-align: left;
+    margin-top: 150px;
+}
+
+h6 {
+    margin-top: 20px;
+}
+
+button {
+    top: -50px;
+    margin-top: 20px;
+    color: rgb(255, 255, 255);
+    background-color: black;
+}
+
+.media {
+    background-color: aquamarine;
+    display: inline-block; /* Display posts inline */
+    width: 250px;
+    margin-top: 600px;
+}
+.rounded-circle{
+  width: 50px;
+  height:  50px;
+}
+      </style> 
+    
+{% endblock content %}
